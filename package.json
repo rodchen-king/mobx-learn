@@ -129,9 +129,8 @@
       "jest-watch-typeahead/testname"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
+  "devDependencies": {
+    "@babel/helper-member-expression-to-functions": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1"
   }
 }
