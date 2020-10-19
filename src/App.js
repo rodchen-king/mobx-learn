@@ -1,39 +1,30 @@
 import React from 'react';
-import {observable, action} from 'mobx';
-import {observer} from 'mobx-react';
+import { inject, observer } from "mobx-react";
 
-var appState = observable({
-    timer: 0
-});
-
-appState.resetTimer = action(function reset() {
-  appState.timer = 0;
-});
-
-setInterval(action(function tick() {
-  appState.timer += 1;
-}), 1000);
-
+@inject('userStore') 
 @observer
-class TimerView extends React.Component {
-    render() {
-        return (
-            <button onClick={this.onReset.bind(this)}>
-                Seconds passed: {this.props.appState.timer}
-            </button>
-        );
-    }
+class App extends React.Component {
 
-    onReset() {
-        this.props.appState.resetTimer();
-    }
-};
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   debugger
+  //   return null
+  // }
 
+  onReset = () =>{
+    this.props.userStore.updateUser('RODCHEN');
+  }
 
-function App() {
-  return (
-    <TimerView appState={appState} />
-  )
+  render() {
+    debugger
+      return (
+        <div>
+          <div>{this.props.userStore.currentUser}</div>
+          <button onClick={this.onReset}>
+            更新
+          </button>
+        </div>
+      );
+  }
 }
 
 export default App;

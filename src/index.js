@@ -1,11 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import userStore from './stores/userStore';
+import { Provider } from "mobx-react";
+// import { useStrict } from "mobx";
 
+const stores = {
+  userStore
+}
+
+// useStrict(true);
+
+// For easier debugging
+window._____APP_STATE_____ = stores;
+debugger
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+
+    <Provider {...stores}> 
+      <App />
+    </Provider>
+,
   document.getElementById('root')
 );
 
