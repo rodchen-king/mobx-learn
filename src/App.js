@@ -1,20 +1,39 @@
 import React from 'react';
+import {observable, action} from 'mobx';
+import {observer} from 'mobx-react';
+
+var appState = observable({
+    timer: 0
+});
+
+appState.resetTimer = action(function reset() {
+  appState.timer = 0;
+});
+
+setInterval(action(function tick() {
+  appState.timer += 1;
+}), 1000);
+
+@observer
+class TimerView extends React.Component {
+    render() {
+        return (
+            <button onClick={this.onReset.bind(this)}>
+                Seconds passed: {this.props.appState.timer}
+            </button>
+        );
+    }
+
+    onReset() {
+        this.props.appState.resetTimer();
+    }
+};
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <TimerView appState={appState} />
+  )
 }
 
 export default App;
