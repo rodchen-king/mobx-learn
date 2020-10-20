@@ -13,7 +13,6 @@ const stores = {
 
 // For easier debugging
 window._____APP_STATE_____ = stores;
-debugger
 ReactDOM.render(
 
     <Provider {...stores}> 
